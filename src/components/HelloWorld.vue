@@ -1,60 +1,146 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router" target="_blank" rel="noopener">router</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
+
+   <div class="login-page">
+      <transition name="fade">
+         <div v-if="!registerActive" class="wallpaper-login"></div>
+      </transition>
+      <div class="wallpaper-register"></div>
+
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
+               <div v-if="!registerActive" class="card login" v-bind:class="{ error: emptyFields }">
+                  <h1>Sign In</h1>
+                  <form class="form-group">
+                     <input v-model="emailLogin" type="email" class="form-control" placeholder="Email" required>
+                     <input v-model="passwordLogin" type="password" class="form-control" placeholder="Password" required>
+                     <input type="submit" class="btn btn-primary" @click="doLogin">
+                     <p>Don't have an account? <a href="#" @click="registerActive = !registerActive, emptyFields = false">Sign up here</a>
+                     </p>
+                     <p><a href="#">Forgot your password?</a></p>
+                  </form>
+               </div>
+
+               <div v-else class="card register" v-bind:class="{ error: emptyFields }">
+                  <h1>Sign Up</h1>
+                  <form class="form-group">
+                     <input v-model="emailReg" type="email" class="form-control" placeholder="Email" required>
+                     <input v-model="passwordReg" type="password" class="form-control" placeholder="Password" required>
+                     <input v-model="confirmReg" type="password" class="form-control" placeholder="Confirm Password" required>
+                     <input type="submit" class="btn btn-primary" @click="doRegister">
+                     <p>Already have an account? <a href="#" @click="registerActive = !registerActive, emptyFields = false">Sign in here</a>
+                     </p>
+                  </form>
+               </div>
+            </div>
+         </div>
+
+      </div>
+
+</div>
 </template>
 
 <script>
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
-  }
+  data() {
+    return {
+      registerActive: false,
+      emailLogin: "",
+      passwordLogin: "",
+      emailReg: "",
+      passwordReg: "",
+      confirmReg: "",
+      emptyFields: false
+    }
+   },
+   
+   methods: {
+      doLogin() {
+         if (this.emailLogin === "" || this.passwordLogin === "") {
+            this.emptyFields = true;
+         } else {
+            alert("You are now logged in");
+         }
+      },
+      
+      doRegister() {
+         if (this.emailReg === "" || this.passwordReg === "" || this.confirmReg === "") {
+            this.emptyFields = true;
+         } else {
+            alert("You are now registered");
+         }
+      }
+   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+ p {
+  line-height: 1rem;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.card {
+  padding: 20px;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+.form-group input {
+  margin-bottom: 20px;
 }
-a {
-  color: #42b983;
+
+.login-page {
+  align-items: center;
+  display: flex;
+  height: 100vh;
 }
+.login-page .wallpaper-login {
+  background: url(https://images.pexels.com/photos/32237/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260) no-repeat center center;
+  background-size: cover;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+.login-page .fade-enter-active,
+.login-page .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.login-page .fade-enter,
+.login-page .fade-leave-to {
+  opacity: 0;
+}
+.login-page .wallpaper-register {
+  background: url(https://images.pexels.com/photos/533671/pexels-photo-533671.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260) no-repeat center center;
+  background-size: cover;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+}
+.login-page h1 {
+  margin-bottom: 1.5rem;
+}
+
+.error {
+  animation-name: errorShake;
+  animation-duration: 0.3s;
+}
+
+@keyframes errorShake {
+  0% {
+    transform: translateX(-25px);
+  }
+  25% {
+    transform: translateX(25px);
+  }
+  50% {
+    transform: translateX(-25px);
+  }
+  75% {
+    transform: translateX(25px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 </style>
