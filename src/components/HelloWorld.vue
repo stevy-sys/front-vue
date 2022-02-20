@@ -1,146 +1,151 @@
 <template>
+  <v-container>
+    <v-row class="text-center">
+      <v-col cols="12">
+        <v-img
+          :src="require('../assets/logo.svg')"
+          class="my-3"
+          contain
+          height="200"
+        />
+      </v-col>
 
-   <div class="login-page">
-      <transition name="fade">
-         <div v-if="!registerActive" class="wallpaper-login"></div>
-      </transition>
-      <div class="wallpaper-register"></div>
+      <v-col class="mb-4">
+        <h1 class="display-2 font-weight-bold mb-3">
+          Welcome to Vuetify
+        </h1>
 
-      <div class="container">
-         <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
-               <div v-if="!registerActive" class="card login" v-bind:class="{ error: emptyFields }">
-                  <h1>Sign In</h1>
-                  <form class="form-group">
-                     <input v-model="emailLogin" type="email" class="form-control" placeholder="Email" required>
-                     <input v-model="passwordLogin" type="password" class="form-control" placeholder="Password" required>
-                     <input type="submit" class="btn btn-primary" @click="doLogin">
-                     <p>Don't have an account? <a href="#" @click="registerActive = !registerActive, emptyFields = false">Sign up here</a>
-                     </p>
-                     <p><a href="#">Forgot your password?</a></p>
-                  </form>
-               </div>
+        <p class="subheading font-weight-regular">
+          For help and collaboration with other Vuetify developers,
+          <br>please join our online
+          <a
+            href="https://community.vuetifyjs.com"
+            target="_blank"
+          >Discord Community</a>
+        </p>
+      </v-col>
 
-               <div v-else class="card register" v-bind:class="{ error: emptyFields }">
-                  <h1>Sign Up</h1>
-                  <form class="form-group">
-                     <input v-model="emailReg" type="email" class="form-control" placeholder="Email" required>
-                     <input v-model="passwordReg" type="password" class="form-control" placeholder="Password" required>
-                     <input v-model="confirmReg" type="password" class="form-control" placeholder="Confirm Password" required>
-                     <input type="submit" class="btn btn-primary" @click="doRegister">
-                     <p>Already have an account? <a href="#" @click="registerActive = !registerActive, emptyFields = false">Sign in here</a>
-                     </p>
-                  </form>
-               </div>
-            </div>
-         </div>
+      <v-col
+        class="mb-5"
+        cols="12"
+      >
+        <h2 class="headline font-weight-bold mb-3">
+          What's next?
+        </h2>
 
-      </div>
+        <v-row justify="center">
+          <a
+            v-for="(next, i) in whatsNext"
+            :key="i"
+            :href="next.href"
+            class="subheading mx-3"
+            target="_blank"
+          >
+            {{ next.text }}
+          </a>
+        </v-row>
+      </v-col>
 
-</div>
+      <v-col
+        class="mb-5"
+        cols="12"
+      >
+        <h2 class="headline font-weight-bold mb-3">
+          Important Links
+        </h2>
+
+        <v-row justify="center">
+          <a
+            v-for="(link, i) in importantLinks"
+            :key="i"
+            :href="link.href"
+            class="subheading mx-3"
+            target="_blank"
+          >
+            {{ link.text }}
+          </a>
+        </v-row>
+      </v-col>
+
+      <v-col
+        class="mb-5"
+        cols="12"
+      >
+        <h2 class="headline font-weight-bold mb-3">
+          Ecosystem
+        </h2>
+
+        <v-row justify="center">
+          <a
+            v-for="(eco, i) in ecosystem"
+            :key="i"
+            :href="eco.href"
+            class="subheading mx-3"
+            target="_blank"
+          >
+            {{ eco.text }}
+          </a>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data() {
-    return {
-      registerActive: false,
-      emailLogin: "",
-      passwordLogin: "",
-      emailReg: "",
-      passwordReg: "",
-      confirmReg: "",
-      emptyFields: false
-    }
-   },
-   
-   methods: {
-      doLogin() {
-         if (this.emailLogin === "" || this.passwordLogin === "") {
-            this.emptyFields = true;
-         } else {
-            alert("You are now logged in");
-         }
-      },
-      
-      doRegister() {
-         if (this.emailReg === "" || this.passwordReg === "" || this.confirmReg === "") {
-            this.emptyFields = true;
-         } else {
-            alert("You are now registered");
-         }
-      }
-   }
-}
+  export default {
+    name: 'HelloWorld',
+
+    data: () => ({
+      ecosystem: [
+        {
+          text: 'vuetify-loader',
+          href: 'https://github.com/vuetifyjs/vuetify-loader',
+        },
+        {
+          text: 'github',
+          href: 'https://github.com/vuetifyjs/vuetify',
+        },
+        {
+          text: 'awesome-vuetify',
+          href: 'https://github.com/vuetifyjs/awesome-vuetify',
+        },
+      ],
+      importantLinks: [
+        {
+          text: 'Documentation',
+          href: 'https://vuetifyjs.com',
+        },
+        {
+          text: 'Chat',
+          href: 'https://community.vuetifyjs.com',
+        },
+        {
+          text: 'Made with Vuetify',
+          href: 'https://madewithvuejs.com/vuetify',
+        },
+        {
+          text: 'Twitter',
+          href: 'https://twitter.com/vuetifyjs',
+        },
+        {
+          text: 'Articles',
+          href: 'https://medium.com/vuetify',
+        },
+      ],
+      whatsNext: [
+        {
+          text: 'Explore components',
+          href: 'https://vuetifyjs.com/components/api-explorer',
+        },
+        {
+          text: 'Select a layout',
+          href: 'https://vuetifyjs.com/getting-started/pre-made-layouts',
+        },
+        {
+          text: 'Frequently Asked Questions',
+          href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
+        },
+      ],
+    }),
+  }
 </script>
-
-<style scoped>
- p {
-  line-height: 1rem;
-}
-
-.card {
-  padding: 20px;
-}
-
-.form-group input {
-  margin-bottom: 20px;
-}
-
-.login-page {
-  align-items: center;
-  display: flex;
-  height: 100vh;
-}
-.login-page .wallpaper-login {
-  background: url(https://images.pexels.com/photos/32237/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260) no-repeat center center;
-  background-size: cover;
-  height: 100%;
-  position: absolute;
-  width: 100%;
-}
-.login-page .fade-enter-active,
-.login-page .fade-leave-active {
-  transition: opacity 0.5s;
-}
-.login-page .fade-enter,
-.login-page .fade-leave-to {
-  opacity: 0;
-}
-.login-page .wallpaper-register {
-  background: url(https://images.pexels.com/photos/533671/pexels-photo-533671.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260) no-repeat center center;
-  background-size: cover;
-  height: 100%;
-  position: absolute;
-  width: 100%;
-  z-index: -1;
-}
-.login-page h1 {
-  margin-bottom: 1.5rem;
-}
-
-.error {
-  animation-name: errorShake;
-  animation-duration: 0.3s;
-}
-
-@keyframes errorShake {
-  0% {
-    transform: translateX(-25px);
-  }
-  25% {
-    transform: translateX(25px);
-  }
-  50% {
-    transform: translateX(-25px);
-  }
-  75% {
-    transform: translateX(25px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-</style>
