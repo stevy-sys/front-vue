@@ -1,5 +1,5 @@
 <template>
   <div class="about">
-      <v-alert type="success"></v-alert>
+     about
   </div>
 </template>
