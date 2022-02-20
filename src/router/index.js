@@ -1,27 +1,74 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import AboutView from '../views/AboutView.vue'
+import Authentification from '../views/Authentification.vue'
+import Home from '../views/Home.vue'
+// import Register from '../views/Register.vue'
+
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'login',
+    component: Authentification,
+    meta:{
+      isAuth:false,
+    }
+  },
+  //  {
+  //   path: '/register',
+  //   name: 'register',
+  //   component: Register,
+  //   meta:{
+  //     isAuth:false,
+  //   }
+  // },
+  {
+    path: '/AboutView',
+    name: 'AboutView',
+    component: AboutView,
+    meta:{
+      isAuth:true
+    }
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/Home',
+    name: 'Home',
+    component: Home,
+    meta:{
+      isAuth:true
+    }
+  },
+  {
+    path: '*',
+    name: 'login2',
+    component: Authentification,
+    meta:{
+      isAuth:false
+    }
+  },
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
+})
+
+router.beforeEach((to,from,next)=>{
+  let token = localStorage.getItem('auth')
+  if (to.meta.isAuth) {
+    if (!token) {
+     next('/')
+    }
+  }
+  
+  if ((to.path == '/' || to.path == '/register' ) && token) {
+    next('/Home')
+  }
+
+  next()
 })
 
 export default router
