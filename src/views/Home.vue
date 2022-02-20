@@ -1,15 +1,29 @@
 <template>
-  <hello-world />
+  <div>
+    home
+  </div>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
-
+  import { profil } from "@/services/User/index";
   export default {
     name: 'Home',
 
     components: {
-      HelloWorld,
+          
     },
+
+    methods:{
+      getProfil(){
+        profil().then(res => {
+          console.log(res);
+        })
+      }
+    },
+
+    mounted(){
+      // console.log('test');
+      this.getProfil()
+    }
   }
 </script>
