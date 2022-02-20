@@ -36,10 +36,13 @@
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
-
     <v-main>
       <router-view/>
     </v-main>
+    <router-link to='/Home'>home</router-link>
+    <router-link to='/AboutView'>about</router-link>
+    <router-link to='/'>login</router-link>
+    <router-link to='/register'>register</router-link>
   </v-app>
 </template>
 
