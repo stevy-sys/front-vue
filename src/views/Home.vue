@@ -44,28 +44,101 @@
 
             <v-divider class="mx-4"></v-divider>
 
-            <v-card-title>Tonight's availability</v-card-title>
+            <v-card-title>Complter votre profil</v-card-title>
 
-            <v-card-text>
-              <v-chip-group
-                v-model="selection"
-                active-class="deep-purple accent-4 white--text"
-                column
-              >
-                <v-chip>5:30PM</v-chip>
+            <v-card-text> </v-card-text>
 
-                <v-chip>7:30PM</v-chip>
+            <v-card-actions class="text-center">
+              <div>
+                <div class="text-center">
+                  <v-dialog v-model="dialog" width="700">
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        color="indigo"
+                        dark
+                        fab
+                        small
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                        <v-icon dark> mdi-plus </v-icon>
+                      </v-btn>
+                    </template>
 
-                <v-chip>8:00PM</v-chip>
+                    <v-card>
+                      <v-stepper v-model="e1">
+                        <v-stepper-header>
+                          <v-stepper-step :complete="e1 > 1" step="1">
+                            Name of step 1
+                          </v-stepper-step>
 
-                <v-chip>9:00PM</v-chip>
-              </v-chip-group>
-            </v-card-text>
+                          <v-divider></v-divider>
 
-            <v-card-actions>
-              <v-btn color="deep-purple lighten-2" text @click="reserve">
-                Reserve
-              </v-btn>
+                          <v-stepper-step :complete="e1 > 2" step="2">
+                            Name of step 2
+                          </v-stepper-step>
+
+                          <v-divider></v-divider>
+
+                          <v-stepper-step step="3">
+                            Name of step 3
+                          </v-stepper-step>
+                        </v-stepper-header>
+
+                        <v-stepper-items>
+                          <v-stepper-content step="1">
+                            <v-card
+                              class="mb-12"
+                              color="grey lighten-1"
+                              height="300px"
+                            ></v-card>
+
+                            <v-btn color="primary" @click="e1 = 2">
+                              Continue
+                            </v-btn>
+
+                            <v-btn text> Cancel </v-btn>
+                          </v-stepper-content>
+
+                          <v-stepper-content step="2">
+                            <v-card
+                              class="mb-12"
+                              color="grey lighten-1"
+                              height="300px"
+                            ></v-card>
+
+                            <v-btn color="primary" @click="e1 = 3">
+                              Continue
+                            </v-btn>
+
+                            <v-btn text> Cancel </v-btn>
+                          </v-stepper-content>
+
+                          <v-stepper-content step="3">
+                            <v-card
+                              class="mb-12"
+                              color="grey lighten-1"
+                              height="300px"
+                            ></v-card>
+
+                            <v-btn color="primary" @click="e1 = 1">
+                              Continue
+                            </v-btn>
+
+                            <v-btn text> Cancel </v-btn>
+                          </v-stepper-content>
+                        </v-stepper-items>
+                      </v-stepper>
+                    </v-card>
+                  </v-dialog>
+                </div>
+                <!--  -->
+              </div>
+              <div>
+                <v-btn class="mx-2" fab dark small color="indigo">
+                  <v-icon dark> mdi-image-album </v-icon>
+                </v-btn>
+              </div>
             </v-card-actions>
           </v-card>
           <v-card class="mx-auto" max-width="300" tile>
@@ -123,38 +196,107 @@
                 <v-btn text color="teal accent-4" @click="reveal = true">
                   <v-icon dark> mdi-thumb-up </v-icon>
                 </v-btn>
-                <v-btn text color="teal accent-4" @click="reveal = true">
+                <!-- <v-btn text color="teal accent-4" @click="reveal = true">
                   <v-icon dark> mdi-comment </v-icon>
-                </v-btn>
-              </v-card-actions>
-              <!-- 
-              <v-expand-transition>
-                <v-card
-                  v-if="reveal"
-                  class="transition-fast-in-fast-out v-card--reveal"
-                  style="height: 100%"
-                >
-                  <v-card-text class="pb-0">
-                    <p class="text-h4 text--primary">Origin</p>
-                    <p>
-                      late 16th century (as a noun denoting a place where alms
-                      were distributed): from medieval Latin eleemosynarius,
-                      from late Latin eleemosyna ‘alms’, from Greek eleēmosunē
-                      ‘compassion’
-                    </p>
-                  </v-card-text>
-                  <v-card-actions class="pt-0">
-                    <v-btn text color="teal accent-4" @click="reveal = true">
-                      <v-icon dark> mdi-thumb-up </v-icon>
-                    </v-btn>
-                    <v-btn text color="teal accent-4" @click="reveal = true">
+                </v-btn> -->
+                <v-dialog v-model="showPub" width="500">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      color="teal accent-4"
+                      dark
+                      text
+                      v-bind="attrs"
+                      v-on="on"
+                    >
                       <v-icon dark> mdi-comment </v-icon>
                     </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-expand-transition> -->
+                  </template>
+
+                  <v-container>
+                    <v-row justify="space-around">
+                      <v-card height="800" width="500">
+                        <v-img
+                          height="400px"
+                          src="https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg"
+                        >
+                          <v-app-bar flat color="rgba(0, 0, 0, 0)">
+                            <!-- <v-app-bar-nav-icon
+                                color="white"
+                              ></v-app-bar-nav-icon> -->
+
+                            <v-toolbar-title class="text-h6 white--text pl-0">
+                              John Doe
+                            </v-toolbar-title>
+
+                            <v-spacer></v-spacer>
+
+                            <v-btn color="white" icon>
+                              <v-icon>mdi-dots-vertical</v-icon>
+                            </v-btn>
+                          </v-app-bar>
+
+                          <!-- <v-card-title class="white--text mt-8">
+                              <v-avatar size="56">
+                                <img
+                                  alt="user"
+                                  src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg"
+                                />
+                              </v-avatar>
+                              <p class="ml-3">John Doe</p>
+                            </v-card-title> -->
+                        </v-img>
+
+                        <v-card-text>
+                          <div class="font-weight-bold ml-8 mb-2">Today</div>
+
+                          <v-timeline align-top dense>
+                            <v-timeline-item
+                              v-for="message in messages"
+                              :key="message.time"
+                              :color="message.color"
+                              small
+                            >
+                              <div>
+                                <div class="font-weight-normal">
+                                  <strong>{{ message.from }}</strong> @{{
+                                    message.time
+                                  }}
+                                </div>
+                                <div>{{ message.message }}</div>
+                              </div>
+                            </v-timeline-item>
+                          </v-timeline>
+                        </v-card-text>
+                        <v-container>
+                          <v-row class="ml-1">
+                            <v-col class="col-lg-10">
+                              <div>
+                                <v-text-field
+                                  v-model="firstname"
+                                  :rules="nameRules"
+                                  :counter="10"
+                                  label="votre commentaire"
+                                  required
+                                ></v-text-field>
+                              </div>
+                            </v-col>
+                            <v-col class="col-lg-2">
+                              <div>
+                                <v-btn class="" fab dark small color="indigo">
+                                  <v-icon dark> mdi-send </v-icon>
+                                </v-btn>
+                              </div>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-card>
+                    </v-row>
+                  </v-container>
+                </v-dialog>
+              </v-card-actions>
             </v-card>
           </div>
+
           <div class="mb-5">
             <v-card class="mb-3 statut">
               <v-card-text>
@@ -354,6 +496,29 @@ export default {
   name: "Home",
   data() {
     return {
+      messages: [
+        {
+          from: "You",
+          message: `Sure, I'll see you later.`,
+          time: "10:42am",
+          color: "deep-purple lighten-1",
+        },
+        {
+          from: "John Doe",
+          message: "Yeah, sure. Does 1:00pm work?",
+          time: "10:37am",
+          color: "green",
+        },
+        {
+          from: "You",
+          message: "Did you still want to grab lunch today?",
+          time: "9:47am",
+          color: "deep-purple lighten-1",
+        },
+      ],
+      showPub: false,
+      e1: 1,
+      dialog: false,
       alignments: ["start", "center", "end"],
       slides: ["First", "Second", "Third", "Fourth", "Fifth"],
       colors: [

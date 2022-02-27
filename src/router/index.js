@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import AboutView from '../views/AboutView.vue'
 import Authentification from '../views/Authentification.vue'
+import Chat from '../views/Chat.vue'
 import Home from '../views/Home.vue'
 // import Register from '../views/Register.vue'
 
@@ -37,6 +38,14 @@ const routes = [
     path: '/Home',
     name: 'Home',
     component: Home,
+    meta:{
+      isAuth:true
+    }
+  },
+  {
+    path: '/Chat',
+    name: 'Chat',
+    component: Chat,
     meta:{
       isAuth:true
     }
