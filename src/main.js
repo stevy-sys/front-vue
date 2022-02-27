@@ -5,6 +5,7 @@ import store from './store'
 import axios from 'axios'
 import vuetify from './plugins/vuetify'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import '@mdi/font/css/materialdesignicons.css'
 
 
 
