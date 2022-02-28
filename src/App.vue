@@ -9,26 +9,25 @@
         transition="scale-transition"
         width="40"
       />
-      
-      <v-toolbar-title>Kaly</v-toolbar-title>
+
+      <router-link to="/">
+        <v-toolbar-title> Kaly </v-toolbar-title>
+      </router-link>
       <v-spacer></v-spacer>
 
-     
-       
-        <v-autocomplete
-          v-model="select"
-          :loading="loading"
-          :items="sear"
-          :search-input.sync="search"
-          cache-items
-          class="mx-4"
-          flat
-          hide-no-data
-          hide-details
-          label="recherche?"
-          solo-inverted
-        ></v-autocomplete>
-      
+      <v-autocomplete
+        v-model="select"
+        :loading="loading"
+        :items="sear"
+        :search-input.sync="search"
+        cache-items
+        class="mx-4"
+        flat
+        hide-no-data
+        hide-details
+        label="recherche?"
+        solo-inverted
+      ></v-autocomplete>
 
       <v-spacer></v-spacer>
 
@@ -66,12 +65,11 @@
               </v-list-item-content>
             </v-list-item>
           </template>
-          <template >
+          <template>
             <div>
               <router-link to="/chat">voir plus</router-link>
             </div>
           </template>
-
         </v-list>
       </v-menu>
 

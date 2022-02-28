@@ -17,9 +17,6 @@ if(token){
 }
 
 
-
-
-
 //service de requette
 export function login(data) {
     return axios.post(routeAPi.login,data,header)
