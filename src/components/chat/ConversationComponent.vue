@@ -7,19 +7,24 @@
       <input type="text" class="form-control" placeholder="Search..." />
     </div>
     <ul class="list-unstyled chat-list mt-2 mb-0">
-      <li class="clearfix">
+      <li v-for="conversation in listeConversation" :key="conversation.id" class="clearfix">
         <img
           src="https://bootdey.com/img/Content/avatar/avatar1.png"
           alt="avatar"
         />
         <div class="about">
-          <div class="name">Vincent Porter</div>
+          <div class="name">{{conversation.who_discuss.user.name}}</div>
           <div class="status">
-            <i class="fa fa-circle offline"></i> left 7 mins ago
+            <div>
+              <i>Lorem ipsum dolor sit.</i>
+            </div>
+            <div>
+              <i class="fa fa-circle offline text-right"></i> il y a 3 minute
+            </div>
           </div>
         </div>
       </li>
-      <li class="clearfix active">
+      <!-- <li class="clearfix active">
         <img
           src="https://bootdey.com/img/Content/avatar/avatar2.png"
           alt="avatar"
@@ -28,58 +33,32 @@
           <div class="name">Aiden Chavez</div>
           <div class="status"><i class="fa fa-circle online"></i> online</div>
         </div>
-      </li>
-      <li class="clearfix">
-        <img
-          src="https://bootdey.com/img/Content/avatar/avatar3.png"
-          alt="avatar"
-        />
-        <div class="about">
-          <div class="name">Mike Thomas</div>
-          <div class="status"><i class="fa fa-circle online"></i> online</div>
-        </div>
-      </li>
-      <li class="clearfix">
-        <img
-          src="https://bootdey.com/img/Content/avatar/avatar7.png"
-          alt="avatar"
-        />
-        <div class="about">
-          <div class="name">Christian Kelly</div>
-          <div class="status">
-            <i class="fa fa-circle offline"></i> left 10 hours ago
-          </div>
-        </div>
-      </li>
-      <li class="clearfix">
-        <img
-          src="https://bootdey.com/img/Content/avatar/avatar8.png"
-          alt="avatar"
-        />
-        <div class="about">
-          <div class="name">Monica Ward</div>
-          <div class="status"><i class="fa fa-circle online"></i> online</div>
-        </div>
-      </li>
-      <li class="clearfix">
-        <img
-          src="https://bootdey.com/img/Content/avatar/avatar3.png"
-          alt="avatar"
-        />
-        <div class="about">
-          <div class="name">Dean Henry</div>
-          <div class="status">
-            <i class="fa fa-circle offline"></i> offline since Oct 28
-          </div>
-        </div>
-      </li>
+      </li> -->
     </ul>
   </div>
 </template>
 
 <script>
+import {getAllConversation} from '@/services/Chat/'
 export default {
-    name:'ConversationComponent'
+    name:'ConversationComponent',
+    data(){
+      return{
+        listeConversation:[]
+      }
+    },
+    mounted(){
+      this.AllConversation()
+    },
+    methods:{
+      AllConversation(){
+        console.log('test');
+        getAllConversation().then(res => {
+          this.listeConversation = res.conversation
+        })
+        
+      }
+    }
 };
 </script>
 

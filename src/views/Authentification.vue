@@ -47,36 +47,7 @@
             </v-menu>
           </v-card-title>
 
-          <v-card-text>
-            <!-- card formulaire -->
-            <v-form class="mt-5" ref="form" v-model="valid" lazy-validation>
-              <v-text-field
-                v-model="email"
-                :rules="emailRules"
-                label="E-mail"
-                required
-              ></v-text-field>
-
-              <v-text-field
-                v-model="name"
-                :counter="10"
-                :rules="nameRules"
-                label="password"
-                required
-              ></v-text-field>
-
-              <v-checkbox
-                v-model="checkbox"
-                :rules="[(v) => !!v || 'You must agree to continue!']"
-                label="Se souvenir de moi"
-                required
-              ></v-checkbox>
-
-              <v-btn color="warning" @click="resetValidation">
-                connexion
-              </v-btn>
-            </v-form>
-          </v-card-text>
+          <login-component v-on:onSubmit="onSubmit"/>
         </v-card>
       </v-row>
     </v-col>
@@ -85,6 +56,8 @@
 </template>
 
 <script>
+import LoginComponent from '@/components/LoginComponent.vue';
+import { login } from '@/services/Auth';
 // @ is an alias to /src
 // import LoginComponent from '@/components/LoginComponent.vue'
 // import RegisterComponent from '@/components/RegisterComponent.vue'
@@ -106,8 +79,7 @@ export default {
     };
   },
   components: {
-    // LoginComponent,
-    // RegisterComponent
+    LoginComponent
   },
 
   methods: {
@@ -117,6 +89,21 @@ export default {
       } else {
         this.type = "register";
       }
+    },
+
+    onSubmit(data){
+      login(data).then(res => {
+        console.log(res);
+        if (!res.warning) {
+          this.saveToken(res);
+          this.$router.push("/Home");
+        }
+      })
+    },
+
+    saveToken(data) {
+      localStorage.setItem("auth", data.accessToken);
+      localStorage.setItem("id_user", data.user.id);
     },
   },
 };
