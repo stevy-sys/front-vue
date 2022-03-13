@@ -3,12 +3,12 @@
     <div class="container">
       <div class="row clearfix">
         <div class="col-lg-12">
-          <div class="card chat-app">
-            <conversation-component />
-            <div class="chat">
-              <header-discussion-component />
-              <discussion-component />
-              <footer-discussion-component />
+          <div v-if="listeConversation" class="card chat-app">
+            <ConversationComponent v-on:changeConversation="changeConversation" :liste="listeConversation" />
+            <div v-if="allDiscussion " class="chat">
+              <HeaderDiscussionComponent :whoDiscuss="whoDiscuss" />
+              <DiscussionComponent :allDiscussion="allDiscussion" />
+              <FooterDiscussionComponent />
             </div>
           </div>
         </div>
@@ -22,6 +22,8 @@ import ConversationComponent from "@/components/chat/ConversationComponent.vue";
 import HeaderDiscussionComponent from "@/components/chat/HeaderDiscussionComponent.vue";
 import DiscussionComponent from "@/components/chat/DiscussionComponent.vue";
 import FooterDiscussionComponent from "@/components/chat/FooterDiscussionComponent.vue";
+
+import {getAllConversation, getAllDiscussionService} from '@/services/Chat/'
 export default {
   name: "Chat",
   components: {
@@ -30,6 +32,44 @@ export default {
     DiscussionComponent,
     FooterDiscussionComponent,
   },
+  data(){
+    return {
+      listeConversation:null,
+      donneeUser:null,
+      allDiscussion:null,
+      whoDiscuss:null
+    }
+  },
+  mounted(){
+    this.AllConversation()
+  },
+  methods:{
+    AllConversation(){
+        getAllConversation().then(res => {
+          // console.log(res)
+          // this.whoDiscuss = conversation.whoDiscuss
+          this.listeConversation = res.conversation
+        })
+      },
+
+    getAllDiscussion(){
+     
+      getAllDiscussionService(this.donneeUser).then(res => {
+        this.allDiscussion = res.conversation
+      })
+    },
+
+    changeConversation(donneeUser){
+      let conversation = this.listeConversation.filter(conversation => {
+        return conversation.id == donneeUser.id_conversation
+      })
+      
+      this.donneeUser = donneeUser;
+      this.whoDiscuss = conversation[0].who_discuss.user;
+      console.log(this.whoDiscuss);
+      this.getAllDiscussion()
+    }
+  }
 };
 </script>
 

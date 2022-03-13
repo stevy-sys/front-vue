@@ -23,3 +23,10 @@ export function getAllConversation() {
             .then(response => {return response.data})
             .catch(error => console.log(error))
 }
+
+export function getAllDiscussionService(donneUser) {
+    let headers = header ;
+    return axios.post(routeAPi.allDiscussion + donneUser.id_conversation,{id_user:donneUser.id_user},{headers})
+            .then(response => {return response.data})
+            .catch(error => console.log(error))
+}

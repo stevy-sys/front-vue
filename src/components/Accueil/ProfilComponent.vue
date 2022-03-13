@@ -10,7 +10,7 @@
 
     <v-img
       height="250"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+      src="../../assets/moi.jpg"
     ></v-img>
 
     <v-card-title>Cafe Badilico</v-card-title>

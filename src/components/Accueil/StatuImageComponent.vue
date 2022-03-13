@@ -2,7 +2,7 @@
   <div class="mb-5">
     <v-card class="mb-3 statut">
       <v-img
-        src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+        src="../../assets/moi.jpg"
         height="200px"
       ></v-img>
 

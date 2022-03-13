@@ -7,16 +7,17 @@
       <input type="text" class="form-control" placeholder="Search..." />
     </div>
     <ul class="list-unstyled chat-list mt-2 mb-0">
-      <li v-for="conversation in listeConversation" :key="conversation.id" class="clearfix">
+      <li v-on:click="changeConversation(conversation.id,conversation.who_discuss.user.id)" v-for="conversation in listeConversation" :key="conversation.id" class="clearfix">
         <img
-          src="https://bootdey.com/img/Content/avatar/avatar1.png"
+          src="../../assets/moi.jpg"
           alt="avatar"
         />
         <div class="about">
           <div class="name">{{conversation.who_discuss.user.name}}</div>
           <div class="status">
             <div>
-              <i>Lorem ipsum dolor sit.</i>
+              <i>{{conversation.latest_message.message}}</i>
+              <!-- <i>{{conversation.latest_message.message}}</i> -->
             </div>
             <div>
               <i class="fa fa-circle offline text-right"></i> il y a 3 minute
@@ -39,24 +40,27 @@
 </template>
 
 <script>
-import {getAllConversation} from '@/services/Chat/'
+// import {getAllConversation} from '@/services/Chat/'
 export default {
     name:'ConversationComponent',
+    props:{liste:Array},
     data(){
       return{
-        listeConversation:[]
+        listeConversation:null
       }
     },
     mounted(){
-      this.AllConversation()
+      console.log('mounted');
+      this.listeConversation = this.liste
+      // console.log('liste',this.liste);
     },
     methods:{
-      AllConversation(){
-        console.log('test');
-        getAllConversation().then(res => {
-          this.listeConversation = res.conversation
-        })
-        
+      changeConversation(id_conversation,id_user){
+        let donneUser = {
+          id_conversation,
+          id_user
+        }
+        this.$emit('changeConversation',donneUser);
       }
     }
 };

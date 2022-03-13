@@ -8,12 +8,12 @@
           data-target="#view_info"
         >
           <img
-            src="https://bootdey.com/img/Content/avatar/avatar2.png"
+            src="../../assets/moi.jpg"
             alt="avatar"
           />
         </a>
         <div class="chat-about">
-          <h6 class="m-b-0">Aiden Chavez</h6>
+          <h6 class="m-b-0">{{whoDiscuss.name}}</h6>
           <small>Last seen: 2 hours ago</small>
         </div>
       </div>
@@ -32,6 +32,15 @@
 <script>
 export default {
   name: "HeaderDiscussionComponent",
+  props:['whoDiscuss'],
+  data(){
+    return {
+      // who:null
+    }
+  },
+  mounted(){
+    // this.who = this.whoDiscuss
+  }
 };
 </script>
 
